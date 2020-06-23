@@ -54,28 +54,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(!empty($data))
-                        @foreach($data as $key => $value)
-                            <tr>
-                                <td>{{ ++$key }}</td>
-                                <td>{{ $value['id'] }}</td>
-                                <td>{{ $value['text'] }}</td>
-                                <td>
-                                    @if(!empty($value['extended_entities']['media']))
-                                        @foreach($value['extended_entities']['media'] as $v)
-                                            <img src="{{ $v['media_url_https'] }}" style="width:100px;">
-                                        @endforeach
-                                    @endif
-                                </td>
-                                <td>{{ $value['favorite_count'] }}</td>
-                                <td>{{ $value['retweet_count'] }}</td>
-                            </tr>
-                        @endforeach
-                    @else
+                    @forelse ($data as $key => $value)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $value['id'] }}</td>
+                            <td>{{ $value['text'] }}</td>
+                            <td>
+                                @if(!empty($value['extended_entities']['media']))
+                                    @foreach($value['extended_entities']['media'] as $v)
+                                        <img src="{{ $v['media_url_https'] }}" style="width:100px;">
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>{{ $value['favorite_count'] }}</td>
+                            <td>{{ $value['retweet_count'] }}</td>
+                        </tr>
+                    @empty
                         <tr>
                             <td colspan="6">There are no data.</td>
                         </tr>
-                    @endif
+                    @endforelse
                 </tbody>
             </table>
         </div>
